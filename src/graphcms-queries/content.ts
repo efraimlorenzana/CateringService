@@ -1,5 +1,5 @@
-export const content = id => (`
-query Content {
+export const content = (id: string) => (`
+query getContent {
     content(where: {id: "${id}"}, stage: PUBLISHED) {
       id
       css
@@ -10,3 +10,9 @@ query Content {
       }
     }
 }`);
+
+export const contentList = `
+... on Content {
+  id
+  updatedAt
+}`;

@@ -1,22 +1,17 @@
+import { contentList } from "./content";
+import { assetList } from "./asset";
+import { socialMediaAccountList } from "./socialMediaAccount";
+
 const standardPages = `
 query {
     pages: standardPages(stage: PUBLISHED) {
       id
       stage
       updatedAt
-      content(first: 100) {
-        ... on Asset {
-          id
-          updatedAt
-        }
-        ... on SocialMediaAccount {
-          id
-          updatedAt
-        }
-        ... on Content {
-          id
-          updatedAt
-        }
+      content {
+        ${assetList}
+        ${socialMediaAccountList}
+        ${contentList}
       }
       createdAt
       css
