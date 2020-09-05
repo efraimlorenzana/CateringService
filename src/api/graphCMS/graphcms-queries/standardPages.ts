@@ -4,9 +4,8 @@ import { socialMediaAccountList } from "./socialMediaAccount";
 
 const standardPages = `
 query {
-    pages: standardPages(stage: PUBLISHED) {
+  standardPages: standardPages(stage: PUBLISHED) {
       id
-      stage
       updatedAt
       content {
         ${assetList}
@@ -22,6 +21,8 @@ query {
       publishedAt
       updatedAt
       url
+      enableNavigation
+      mainPage
     }
 }`;
 

@@ -1,24 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { dispatch } from "../store/dispatcher";
-import { getHeader } from "../store/action/actions";
-import { IHeader } from "./model/header";
+import React, { useEffect, Fragment } from "react";
+import { connect } from 'react-redux';
+import { getHeader } from "../store/action/headerAction";
+import { IStateProps, IDispatchProps } from "./model/reduxProps";
+import Header from "../component/header/header";
+import { getStandardPages } from "../store/action/pagesAction";
+import { INavigation } from "./model/header";
+import {
+  Route,
+  RouteComponentProps,
+  withRouter,
+  Switch,
+  Router
+} from "react-router-dom";
+import Home from "../component/home/home";
 
-const App = () => {
-  const [header, setHeader] = useState<IHeader | null>(null);
+const mapState = (state: IStateProps) => ({
+  header : state.header,
+  standardPages : state.standardPages
+});
+
+const mapDispatch = {
+  getHeader: () => getHeader(),
+  getStandardPages: () => getStandardPages()
+}
+
+type Props = IStateProps & IDispatchProps;
+
+const App = (_: Props) => {
+
+  const isLoading = (_.header === null || _.standardPages!.length === 0);
 
   useEffect(() => {
-    setHeader(dispatch(getHeader()).header);
-  }, []);
+    if(isLoading)
+      _.header === null ? _.getHeader() : _.getStandardPages();
 
-  if (header === null) return <h1>Loading...</h1>;
-console.log("header", header);
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello World</h1>
-      </header>
-    </div>
+  }, [_, isLoading]);
+ 
+  if(isLoading) return <h1>Loading...</h1>
+
+  const nav: INavigation[] = _.standardPages!.map(p => ({ page: p.name, url: p.url, isMain: p.mainPage, isNav: p.enableNavigation }));
+
+  return  (
+    <Fragment>
+      <Header header={_.header!} nav={nav} />
+      <Route exact path={["/", `${nav.filter(x => x.isMain)[0].url}`]} component={Home} />
+
+    </Fragment>
   );
 };
 
-export default App;
+export default withRouter(connect<IStateProps, IDispatchProps>(mapState, mapDispatch)(App));

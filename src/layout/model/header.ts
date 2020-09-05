@@ -7,5 +7,14 @@ export interface IHeader {
     contactInformations: IContactInformation[],
     welcomeText: string,
     logo: ILogo,
-    socialAccounts: ISocialAccount[]
+    socialAccounts: ISocialAccount[],
+    css: string,
+    globalCss: string
+}
+
+export interface INavigation {
+    page: string,
+    url: string,
+    isMain: boolean,
+    isNav: boolean
 }

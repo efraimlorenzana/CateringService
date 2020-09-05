@@ -1,6 +1,8 @@
 export const getHeader = `
 query getHeader {
   headers(stage: PUBLISHED) {
+    css
+    globalCss
     accountButtonLabel
     contactInformations {
       id
