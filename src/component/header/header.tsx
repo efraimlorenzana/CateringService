@@ -19,7 +19,7 @@ const Header: FC<IProps> = ({ header, nav }) => {
     ...cmsCSS,
   };
 
-  header.globalCss && applyCSS(header.globalCss);
+  header.globalCss && applyCSS(header.globalCss, "clientStyling", "head");
 
   return (
     <header className="header" style={inlineStyle}>

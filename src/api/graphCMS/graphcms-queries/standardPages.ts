@@ -1,6 +1,6 @@
-import { contentList } from "./content";
-import { assetList } from "./asset";
-import { socialMediaAccountList } from "./socialMediaAccount";
+import { contentList, content } from "./content";
+import { assetList, asset } from "./asset";
+import { socialMediaAccountList, socialMediaAccount } from "./socialMediaAccount";
 
 const standardPages = `
 query {
@@ -25,5 +25,18 @@ query {
       mainPage
     }
 }`;
+
+export const getContent = (id: string) => (`
+query getContent {
+  ${content(id)},
+  ${socialMediaAccount(id)},
+  ${asset(id)}
+}`);
+
+export const contentQueries = [
+    content,
+    socialMediaAccount,
+    asset
+];
 
 export default standardPages;

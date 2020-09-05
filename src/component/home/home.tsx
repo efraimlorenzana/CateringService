@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-const Home = () => {
+const Home: FC<{ title: string }> = ({ title }) => {
     return (
         <div>
-            <h1>Home Page</h1>
+            <h1>{title}</h1>
         </div>
     )
 }

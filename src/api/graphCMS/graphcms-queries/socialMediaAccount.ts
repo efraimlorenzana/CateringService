@@ -1,13 +1,11 @@
-export const asset = (id: string) => (`
-query getSocialMediaAccount {
-  socialMediaAccount(where: {id: "${id}"}, stage: PUBLISHED) {
-    logo {
-      mimeType
-      id
-      fileName
-      url
-      handle
-    }
+export const socialMediaAccount = (id: string) => (`
+socialMediaAccount(where: {id: "${id}"}, stage: PUBLISHED) {
+  logo {
+    mimeType
+    id
+    fileName
+    url
+    handle
   }
 }`);
 

@@ -1,20 +1,20 @@
-const createGlobalStyle = () => {
+const createGlobalStyle = (id: string, element: string) => {
     const s = document.createElement("style");
-    s.setAttribute("id", "clientStyling");
+    s.setAttribute("id", id);
     s.setAttribute("type", "text/css");
 
-    document.querySelector("head")!.appendChild(s);
+    document.querySelector(element)!.appendChild(s);
 
     return s;
 }
 
-export const applyCSS = (styles: string) => {
-    let gStyle = document.querySelector("style#clientStyling") as HTMLStyleElement;
+export const applyCSS = (styles: string, id: string, element: string) => {
+    let gStyle = document.querySelector(`style#${id}`) as HTMLStyleElement;
 
     if(gStyle === null || gStyle === undefined) {
-        gStyle = createGlobalStyle();
+        gStyle = createGlobalStyle(id, element);
     }
 
     gStyle.appendChild(document.createTextNode(styles));
-    document.querySelector("head")!.appendChild(gStyle);
+    document.querySelector(element)!.appendChild(gStyle);
 }
