@@ -7,6 +7,8 @@ socialMediaAccount(where: {id: "${id}"}, stage: PUBLISHED) {
     url
     handle
   }
+  id
+  url
 }`);
 
 export const socialMediaAccountList = `

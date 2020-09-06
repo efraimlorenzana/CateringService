@@ -1,0 +1,22 @@
+.grid-block > * {
+    padding: 10px;
+    display: inline-block;
+}
+@media only screen and (max-width: 767px) {
+    .grid-block {
+        width: 100%!important;
+    }
+}
+
+.grid-col-2-desktop > * {
+    width: calc(100%/2);
+}
+
+.grid-col-3-desktop > * {
+    width: calc(100%/3);
+}
+
+.grid-col-2-mobile > * {
+    width: 100%;
+    display: block;
+}

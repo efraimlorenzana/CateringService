@@ -1,3 +1,8 @@
+import { IAssetBlock } from "./asset";
+import { IContentBlock } from "./content";
+import { ISocialAccount } from "./socialAccount";
+import { IGrid } from "./grid";
+
 export interface IStandardPage {
     id: string,
     updatedAt: string,
@@ -10,10 +15,24 @@ export interface IStandardPage {
     url: string,
     enableNavigation: boolean,
     mainPage: boolean,
-    content: IContentRef[]
+    content: IContentRef[],
+    pageContent? : IPageContent[]
 }
 
 export interface IContentRef {
     id: string,
     updatedAt: string
+}
+
+export interface IContent {
+    asset: IAssetBlock,
+    content: IContentBlock,
+    socialMediaAccount: ISocialAccount,
+    grid: IGrid
+}
+
+export interface IPageContent {
+    id: string
+    type: string,
+    data: any
 }

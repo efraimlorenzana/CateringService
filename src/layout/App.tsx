@@ -1,13 +1,14 @@
 import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { getHeader } from "../store/action/headerAction";
-import { IStateProps, IDispatchProps } from "./model/reduxProps";
+import { IStateProps, IAppDispatchProps } from "./model/reduxProps";
 import Header from "../component/header/header";
-import { getStandardPages } from "../store/action/pagesAction";
+import { getStandardPages, getBlockContents } from "../store/action/pagesAction";
 import { INavigation } from "./model/header";
-import { withRouter } from "react-router-dom";
+import { withRouter, Switch, Route } from "react-router-dom";
 import DynamicRoute from "../component/dynamicRoute";
 import StandardPageComponent from "../component/pages/standardPageComponent";
+import NotFound from "./notFound";
 
 const mapState = (state: IStateProps) => ({
   header: state.header,
@@ -17,9 +18,10 @@ const mapState = (state: IStateProps) => ({
 const mapDispatch = {
   getHeader: () => getHeader(),
   getStandardPages: () => getStandardPages(),
+  getBlockContents: (ids: string[], pageID: string) => getBlockContents(ids, pageID)
 };
 
-type Props = IStateProps & IDispatchProps;
+type Props = IStateProps & IAppDispatchProps;
 
 const App = (_: Props) => {
   const isLoading = _.header === null || _.standardPages!.length === 0;
@@ -44,15 +46,25 @@ const App = (_: Props) => {
         return (
           <Fragment key={page.id}>
             {
-              <DynamicRoute  nav={nav[i]} element={<StandardPageComponent page={page} />} />
+              <DynamicRoute  nav={nav[i]} element={<StandardPageComponent page={page} fetchContent={_.getBlockContents} />} />
             }
           </Fragment>
         );
       })}
+      <Route 
+        path={"/(.+)"}
+        render={() => (
+          <Fragment>
+            <Switch>
+              <Route component={NotFound} />
+            </Switch>
+          </Fragment>
+        )}
+      />
     </Fragment>
   );
 };
 
 export default withRouter(
-  connect<IStateProps, IDispatchProps>(mapState, mapDispatch)(App)
+  connect<IStateProps, IAppDispatchProps>(mapState, mapDispatch)(App)
 );

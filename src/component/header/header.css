@@ -66,7 +66,7 @@
 .header > .header__navigation {
   width: 100%;
   position: absolute;
-  bottom: -3rem;
+  bottom: -4rem;
   background-color: #ffad19;
   display: flex;
   border-radius: 100px;
@@ -84,7 +84,7 @@
     font-size: 1rem;
     text-transform: uppercase;
     font-weight: 700;
-    padding: 1rem 1rem;
+    padding: 1.5rem 1rem;
     display: block;
 }
 
@@ -92,4 +92,8 @@
     background-color: #ffffff;
     color: #000000;
     box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .1);
+}
+
+.header > .header__navigation > div > a.active {
+    color: #000000;
 }

@@ -1,6 +1,7 @@
 import { contentList, content } from "./content";
 import { assetList, asset } from "./asset";
 import { socialMediaAccountList, socialMediaAccount } from "./socialMediaAccount";
+import { gridList, grid } from "./grid";
 
 const standardPages = `
 query {
@@ -11,6 +12,7 @@ query {
         ${assetList}
         ${socialMediaAccountList}
         ${contentList}
+        ${gridList}
       }
       createdAt
       css
@@ -26,17 +28,19 @@ query {
     }
 }`;
 
-export const getContent = (id: string) => (`
+export const getBlockContent = (id: string) => (`
 query getContent {
   ${content(id)},
   ${socialMediaAccount(id)},
-  ${asset(id)}
+  ${asset(id)},
+  ${grid(id)}
 }`);
 
 export const contentQueries = [
-    content,
-    socialMediaAccount,
-    asset
+    "content",
+    "socialMediaAccount",
+    "asset",
+    "grid"
 ];
 
 export default standardPages;

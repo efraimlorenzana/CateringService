@@ -3,10 +3,11 @@ import { IStandardPage } from "./standardPage";
 
 export interface IStateProps {
     header?: IHeader | null,
-    standardPages?: IStandardPage[]
+    standardPages?: IStandardPage[],
 }
 
-export interface IDispatchProps {
+export interface IAppDispatchProps {
     getHeader: () => void,
-    getStandardPages: () => void
+    getStandardPages: () => void,
+    getBlockContents: (ids: string[], pageID: string) => void
 }
